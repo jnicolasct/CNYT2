@@ -326,6 +326,28 @@ public class CNYT2 {
         return true;
     }
     
+    public boolean igualesMatDob(double [][] mat1, double[][] mat2){
+        for (int i=0;i<mat1.length;i++){
+            for (int j=0;j<mat1[0].length;j++){
+                if (mat1[i][j]!= mat2[i][j] || mat1[i][j]!= mat2[i][j] ){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public boolean igualesMatInt(int[][] mat1, int[][] mat2){
+        for (int i=0;i<mat1.length;i++){
+            for (int j=0;j<mat1[0].length;j++){
+                if (mat1[i][j]!= mat2[i][j] || mat1[i][j]!= mat2[i][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     /*
     * Retorna si dos vectores son iguales
     * vec1 primer vector complejo
@@ -340,7 +362,25 @@ public class CNYT2 {
         }
         return true;
     }
-    
+
+    public boolean igualesVecDob(double[] vec1, double[] vec2){ 
+        for (int i=0;i<vec1.length;i++){
+            if (vec1[i]!= vec2[i] || vec1[i]!= vec2[i]){
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean igualesVecInt(int[] vec1, int[] vec2){
+        
+        for (int i=0;i<vec1.length;i++){
+            if (vec1[i]!= vec2[i] || vec1[i]!= vec2[i]){
+                    return false;
+            }
+        }
+        return true;
+    }    
     /*
     * Retorna si una matriz es unitaria
     * mat1 matriz compleja a verificar
@@ -458,6 +498,33 @@ public class CNYT2 {
         return accionMatVecDob(probabilidad, estado);
     }
     
+    public int[][] llenarInt(int[][] mat){
+        for (int i=0; i<mat.length;i++){
+            for (int j=0; j<mat[0].length;j++){
+                mat[i][j]=0;
+            }
+        }
+        return mat;
+    }
+    
+    public double[][] llenarDob(double[][] mat){
+        for (int i=0; i<mat.length;i++){
+            for (int j=0; j<mat[0].length;j++){
+                mat[i][j]=0.0;
+            }
+        }
+        return mat;
+    }
+    
+    public Complejo[][] llenarComp(Complejo[][] mat){
+        Complejo a = new Complejo(0.0,0.0);
+        for (int i=0; i<mat.length;i++){
+            for (int j=0; j<mat[0].length;j++){
+                mat[i][j]= a;
+            }
+        }
+        return mat;
+    }
     
     public Complejo[] marblesCom(int clicks, Complejo[][] probabilidad, Complejo[] estado){
         if (clicks ==1){
@@ -470,18 +537,139 @@ public class CNYT2 {
         return accionMatVec(probabilidad, estado);
     }
     
-    public double[][] rendijas (int rendijas , int blancos, double probabilidad){
+    public double[] rendijas (int rendijas , int blancos, double probabilidad){
         double[][] respuesta = new double[rendijas+blancos+1][rendijas+blancos+1];
-        double pr1 =1/rendijas;
-        for (int i=1;1<=rendijas;i++){
+        respuesta = llenarDob(respuesta);
+        double[] vector = new double [rendijas+blancos+1];
+        double pr1 =1.0/rendijas;
+        for (int i=1;i<=rendijas;i++){
             respuesta[i][0]= pr1;
         }
-        int a = (int) Math.ceil(1/probabilidad);
+        int a = (int) Math.ceil(blancos/rendijas)+1;
         int b = a+rendijas;
-        for (int j =rendijas+1; j<=b; j++){
-            respuesta[j][]
+        int h = 1;
+        int j = rendijas + 1;
+        while (h<=rendijas){
+            respuesta [j][h] = probabilidad;
+            if (j==b){
+                h+=1;
+                b = j+a-1;
+            }
+            else{
+                j +=1;
+            }
         }
-    } 
+        for (int x=rendijas+1; x<rendijas+blancos+1;x++){
+            respuesta[x][x] = 1.0;
+        }
+        respuesta = multMatDob(respuesta, respuesta);
+        for (int y=0; y< rendijas + blancos +1 ; y++){
+            if (y==0){
+                vector[y]=1.0;
+            }
+            else{
+                vector[y]=0.0;
+            }
+        }
+        
+        return accionMatVecDob(respuesta, vector);
+    }
     
+    public double[][] rendijasMat (int rendijas , int blancos, double probabilidad){
+        double[][] respuesta = new double[rendijas+blancos+1][rendijas+blancos+1];
+        respuesta = llenarDob(respuesta);
+        double[] vector = new double [rendijas+blancos+1];
+        double pr1 =1.0/rendijas;
+        for (int i=1;i<=rendijas;i++){
+            respuesta[i][0]= pr1;
+        }
+
+        int a = (int) Math.ceil(blancos/rendijas)+1;
+        int b = a+rendijas;
+        int h = 1;
+        int j = rendijas + 1;
+        while (h<=rendijas){
+            respuesta [j][h] = probabilidad;
+            if (j==b){
+                h+=1;
+                b = j+a-1;
+            }
+            else{
+                j +=1;
+            }
+        }
+        
+        for (int x=rendijas+1; x<rendijas+blancos+1;x++){
+            respuesta[x][x] = 1.0;
+        }
+        
+        return multMatDob(respuesta, respuesta);
+    }
+    
+    public Complejo[] rendijasComp (int rendijas , int blancos, Complejo probabilidad){
+        Complejo[][] respuesta = new Complejo[rendijas+blancos+1][rendijas+blancos+1];
+        respuesta = llenarComp(respuesta);
+        Complejo[] vector = new Complejo [rendijas+blancos+1];
+        Complejo pr1 = new Complejo ((1.0/Math.sqrt(rendijas)), 0.0);
+        for (int i=1;i<=rendijas;i++){
+            respuesta[i][0]= pr1;
+        }
+        int a = (int) Math.ceil(blancos/rendijas)+1;
+        int b = a+rendijas;
+        int h = 1;
+        int j = rendijas + 1;
+        while (h<=rendijas){
+            respuesta [j][h] = probabilidad;
+            if (j==b){
+                h+=1;
+                b = j+a-1;
+            }
+            else{
+                j +=1;
+            }
+        }
+        for (int x=rendijas+1; x<rendijas+blancos+1;x++){
+            respuesta[x][x] = new Complejo (1.0,0.0);
+        }
+        
+        respuesta = multMat(respuesta, respuesta);
+        for (int y=0; y< rendijas + blancos +1 ; y++){
+            if (y==0){
+                vector[y]= new Complejo(1.0,0.0);
+            }
+            else{
+                vector[y]=new Complejo (0.0,0.0);
+            }
+        }
+        return accionMatVec(respuesta, vector);
+    }
+    
+    public Complejo[][] rendijasMatComp (int rendijas , int blancos, Complejo probabilidad){
+        Complejo[][] respuesta = new Complejo[rendijas+blancos+1][rendijas+blancos+1];
+        respuesta = llenarComp(respuesta);
+        Complejo[] vector = new Complejo [rendijas+blancos+1];
+        Complejo pr1 = new Complejo ((1.0/Math.sqrt(rendijas)), 0);
+        for (int i=1;i<=rendijas;i++){
+            respuesta[i][0]= pr1;
+        }
+        int a = (int) Math.ceil(blancos/rendijas)+1;
+        int b = a+rendijas;
+        int h = 1;
+        int j = rendijas + 1;
+        while (h<=rendijas){
+            respuesta [j][h] = probabilidad;
+            if (j==b){
+                h+=1;
+                b = j+a-1;
+            }
+            else{
+                j +=1;
+            }
+        }
+        for (int x=rendijas+1; x<rendijas+blancos+1;x++){
+            respuesta[x][x] = new Complejo (1.0,0.0);
+        }
+        return multMat(respuesta, respuesta);
+    }
 }
 
