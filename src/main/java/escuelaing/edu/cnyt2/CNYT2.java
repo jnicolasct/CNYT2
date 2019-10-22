@@ -167,6 +167,16 @@ public class CNYT2 {
         return respuesta;
     }
     
+        public Complejo[][] restaMat(Complejo[][] mat1, Complejo[][] mat2){
+        Complejo[][] respuesta = new Complejo[mat1.length][mat1[0].length];
+        for (int i=0;i<mat1.length;i++){
+            for (int j=0;j<mat1[0].length;j++){
+                respuesta[i][j] = restaComp(mat1[i][j], mat2[i][j]);
+            }
+        }
+        return respuesta;
+    }
+    
     /*
     * Retorna la inversa de una matriz
     * mat1 matriz compleja a invertir
@@ -255,6 +265,20 @@ public class CNYT2 {
         }
         return respuesta;
     }
+    
+    public Complejo[] accionVecMat(Complejo[] vec1, Complejo[][] mat1){
+        Complejo[] respuesta = new Complejo[vec1.length];
+        Complejo suma = new Complejo(0,0);
+        for (int i=0;i<mat1.length;i++){
+            suma = new Complejo(0,0);
+            for (int j=0;j<mat1[0].length;j++){
+               suma = sumaComp(suma, multComp(mat1[j][i], vec1[j]));
+            }
+            respuesta[i] = suma;
+        }
+        return respuesta;
+    }    
+    
     
     /*
     * Retorna la norma de una matriz
@@ -671,5 +695,101 @@ public class CNYT2 {
         }
         return multMat(respuesta, respuesta);
     }
+    
+    public double probabilidadK(int puntos, Complejo[] ket, int posicion){
+        double suma = 0.0;
+        double resp;
+        for (int i=0;i<ket.length;i++){
+            suma = suma + (ket[i].modulo()*ket[i].modulo());
+        }
+        resp = ket[posicion].modulo()/suma;
+        return resp;
+    }
+    
+        public Complejo dobleKet(Complejo[] ket, Complejo[] ket1){
+        Complejo suma = new Complejo(0,0);
+        Complejo resp;
+        double norma=0.0;
+        double norma1=0.0;
+        for (int i=0;i<ket.length;i++){
+            suma = sumaComp(multComp(ket[i],ket1[i]), suma);
+        }
+        for (int i=0;i<ket.length;i++){
+            norma = norma + (ket[i].modulo()*ket[i].modulo());
+        }
+        for (int i=0;i<ket1.length;i++){
+            norma1 = norma1 + (ket1[i].modulo()*ket1[i].modulo());
+        }
+        Complejo normaF= new Complejo (norma,norma1);
+        resp= new Complejo (suma.getEntero()/normaF.getEntero(), suma.getImaginario()/normaF.getImaginario());
+        return resp;
+    }
+        
+    public Complejo meanValue(Complejo[][] obs, Complejo[] ket){
+        Complejo[] resp = accionMatVec(obs, ket);
+        Complejo suma = new Complejo(0,0);
+        for (int i=0;i<ket.length;i++){
+            suma = sumaComp(multComp(resp[i],ket[i]), suma);
+        }
+        return suma;
+          
+      }
+    
+    public Complejo varianza(Complejo[][] obs, Complejo[] ket){
+        Complejo[][] resp1= new Complejo[obs.length][obs[0].length];
+        resp1 = llenarComp(resp1);
+        Complejo medio = meanValue(obs,ket);
+        for (int i=0;i<resp1.length; i++){
+            resp1[i][i]= medio;
+        }
+        Complejo[][] resp2 = restaMat(obs, resp1);
+        Complejo[][] resp3 = multMat(resp2, resp2);
+        Complejo[] resp4 = accionVecMat(ket, resp3);
+        Complejo suma1 = new Complejo(0.0,0.0);
+        for (int i=0;i<ket.length;i++){
+            suma1 = sumaComp(multComp(resp4[i],ket[i]), suma1);
+        }
+        if (suma1.getEntero()<0.0){
+            suma1.setEntero(suma1.getEntero()*-1.0);
+        }
+        return suma1;
+        
+    }
+    
+    public Complejo[] eaginvalues(Complejo[][] obs, Complejo[]ket){
+        Complejo[] resp = accionMatVec(obs, ket);
+        return resp;
+    }
+    
+    public double eaginProbabilidad(Complejo[][] obs, Complejo[]ket){
+        Complejo[] resp = eaginvalues(obs,ket);
+        int pr = resp.length;
+        double resp1 = 1.0/pr;
+        return resp1;
+    }
+    
+    public Complejo[] dinamica(ArrayList<Complejo[][]> obs, Complejo[]ket){
+        Complejo[] resp = ket;
+        for (int i=0;i<obs.size();i++){
+            resp = accionMatVec(obs.get(i), resp);
+        }
+        return resp;
+    }
+    
+        public Complejo[] dinamicaExacta(ArrayList<Complejo[][]> obs, Complejo[]ket, int tmp){
+        Complejo[] resp = ket;
+        for (int i=0;i<tmp;i++){
+            resp = accionMatVec(obs.get(i), resp);
+        }
+        return resp;
+    }
+    
+    
+    
+    
+    
+    
+    
+   
 }
 

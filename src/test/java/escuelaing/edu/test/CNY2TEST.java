@@ -104,8 +104,179 @@ public class CNY2TEST {
         boolean flag= prueba.igualesMat(mat1, matDad);
         boolean flag2 = prueba.igualesVec(vecResp, vecDado);
         assertTrue(flag && flag2);
-    }        
+    }   
+        
     
+    @Test
+        public void probabilidadCorecta(){
+            Complejo a = new Complejo(-3,-1);
+            Complejo b = new Complejo(0,-2);
+            Complejo c = new Complejo(0,1);
+            Complejo d = new Complejo(2,0);
+            Complejo[] ket = new Complejo[4];
+            ket[0]=a;
+            ket[1]=b;
+            ket[2]=c;
+            ket[3]=d;
+            double resp = 0.05263157894736842;
+            double dado =prueba.probabilidadK(4, ket, 2);
+            assertTrue(resp==dado);
+        }
+        
+        @Test
+        public void dobleKetCorecto(){
+            Complejo a = new Complejo(0,-1);
+            Complejo b = new Complejo(1,0);
+            Complejo[] ket = new Complejo[2];
+            ket[0]=a;
+            ket[1]=b;
+            Complejo[] ket1 = new Complejo[2];
+            ket1[0]=b;
+            ket1[1]=a;
+            Complejo resp = new Complejo (0,-1);
+            Complejo dado =prueba.dobleKet(ket, ket1);
+            boolean flag = false;
+            if (resp.getEntero()== dado.getEntero() && resp.getImaginario() == dado.getImaginario()){
+                flag = true;
+            }       
+            assertTrue(flag);
+        }
+         @Test
+        public void varianzaCorrecta(){
+            Complejo a = new Complejo(0.0,-1.0);
+            Complejo b = new Complejo(1.0,0.0);
+            Complejo c = new Complejo(0.0,1.0);
+            Complejo d = new Complejo(2.0,0.0);
+            Complejo e = new Complejo((Math.sqrt(2)/2.0),0.0);
+            Complejo f = new Complejo(0.0,(Math.sqrt(2)/2.0));
+            Complejo[] ket = new Complejo[2];
+            ket[0]=e;
+            ket[1]=f;
+            Complejo[][] obs = new Complejo[2][2];
+            obs[0][0]=b;
+            obs[0][1]=a;
+            obs[1][0]=c;
+            obs[1][1]=d;
+            Complejo resp = new Complejo ((Math.sqrt(2)*Math.sqrt(2)),0.0);
+            Complejo dado =prueba.varianza(obs, ket);
+            boolean flag = false;
+            if (resp.getEntero()== dado.getEntero() && resp.getImaginario() == dado.getImaginario()){
+                flag = true;
+            }       
+            assertTrue(flag);
+        }
+        
+        @Test
+            public void eigenValuesCorresto(){
+                Complejo a = new Complejo(-1.0, 0.0);
+                Complejo b = new Complejo(-1.0,-1.0);
+                Complejo c = new Complejo(0.0,-1.0);
+                Complejo d = new Complejo(1.0,0.0);
+                Complejo e = new Complejo(0.0,1.0);
+                Complejo f = new Complejo(-1.0,-2.0);
+                Complejo[] ket = new Complejo[2];
+                Complejo[][] obs = new Complejo[2][2];
+                ket[0]=a;
+                ket[1]=b;
+                obs[0][0]=a;
+                obs[0][1]=c;
+                obs[1][0]=e;
+                obs[1][1]=d;
+                Complejo[] resp = new Complejo[2];
+                resp[0]=e;
+                resp[1]=f;
+                Complejo[] dado = prueba.eaginvalues(obs, ket);
+                assertTrue(prueba.igualesVec(resp, dado));
+                        
+                        
+            }
+            
+        @Test
+            public void eigenProbabilidadCorresto(){
+                Complejo a = new Complejo(-1.0, 0.0);
+                Complejo b = new Complejo(-1.0,-1.0);
+                Complejo c = new Complejo(0.0,-1.0);
+                Complejo d = new Complejo(1.0,0.0);
+                Complejo e = new Complejo(0.0,1.0);
+                Complejo f = new Complejo(-1.0,-2.0);
+                Complejo[] ket = new Complejo[2];
+                Complejo[][] obs = new Complejo[2][2];
+                ket[0]=a;
+                ket[1]=b;
+                obs[0][0]=a;
+                obs[0][1]=c;
+                obs[1][0]=e;
+                obs[1][1]=d;
+                double resp = 0.5;
+                double dado = prueba.eaginProbabilidad(obs, ket);
+                assertTrue(resp==dado);
+                        
+                        
+            }
+            
+        @Test
+            public void dinamicaCorresto(){
+                Complejo a = new Complejo(0.0, 0.0);
+                Complejo b = new Complejo(1.0,1.0);
+                Complejo d = new Complejo(1.0,0.0);
+                Complejo c = new Complejo((Math.sqrt(2)/2.0),0.0);
+                Complejo e = new Complejo((Math.sqrt(2)/2.0)*-1,0.0);
+                Complejo[] ket = new Complejo[2];
+                Complejo[][] obs = new Complejo[2][2];
+                Complejo[][] obs1 = new Complejo[2][2];
+                ket[0]=d;
+                ket[1]=a;
+                obs[0][0]=a;
+                obs[0][1]=d;
+                obs[1][0]=d;
+                obs[1][1]=a;
+                obs1[0][0]=c;
+                obs1[0][1]=c;
+                obs1[1][0]=c;
+                obs1[1][1]=e;
+                ArrayList<Complejo[][]> obs3 = new ArrayList<Complejo[][]>();
+                obs3.add(obs);
+                obs3.add(obs1);
+                Complejo[] resp = new Complejo[2];
+                resp[0] = new Complejo(0.7071067811865476, 0.0);
+                resp[1] = new Complejo(-0.7071067811865476, 0.0);
+                Complejo[] dado = prueba.dinamica(obs3, ket);
+                assertTrue(prueba.igualesVec(resp, dado));
+                        
+                        
+            }
+        
+        @Test
+            public void dinamicaExactaCorresto(){
+                Complejo a = new Complejo(0.0, 0.0);
+                Complejo b = new Complejo(1.0,1.0);
+                Complejo d = new Complejo(1.0,0.0);
+                Complejo c = new Complejo((Math.sqrt(2)/2.0),0.0);
+                Complejo e = new Complejo((Math.sqrt(2)/2.0)*-1,0.0);
+                Complejo[] ket = new Complejo[2];
+                Complejo[][] obs = new Complejo[2][2];
+                Complejo[][] obs1 = new Complejo[2][2];
+                ket[0]=d;
+                ket[1]=a;
+                obs[0][0]=a;
+                obs[0][1]=d;
+                obs[1][0]=d;
+                obs[1][1]=a;
+                obs1[0][0]=c;
+                obs1[0][1]=c;
+                obs1[1][0]=c;
+                obs1[1][1]=e;
+                ArrayList<Complejo[][]> obs3 = new ArrayList<Complejo[][]>();
+                obs3.add(obs);
+                obs3.add(obs1);
+                Complejo[] resp = new Complejo[2];
+                resp[0] = new Complejo(0.0, 0.0);
+                resp[1] = new Complejo(1.0, 0.0);
+                Complejo[] dado = prueba.dinamicaExacta(obs3, ket, 1);
+                assertTrue(prueba.igualesVec(resp, dado));
+                        
+                        
+            }
         
      
 }

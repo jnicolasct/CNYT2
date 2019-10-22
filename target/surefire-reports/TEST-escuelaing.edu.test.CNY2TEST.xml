@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="escuelaing.edu.test.CNY2TEST" time="0.12" errors="0" skipped="0">
+<testsuite tests="12" failures="0" name="escuelaing.edu.test.CNY2TEST" time="0.115" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_111\jre\bin"/>
@@ -16,7 +16,7 @@
     <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="test" value="escuelaing.edu.test.CNY2TEST"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\jcortes\Desktop\ANGIE\CNYT2"/>
+    <property name="user.dir" value="C:\Users\jcortes\Desktop\u\octavo semestre\CNYT\CNYT2"/>
     <property name="java.runtime.version" value="1.8.0_111-b14"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_111\jre\lib\endorsed"/>
@@ -62,9 +62,16 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="escuelaing.edu.test.CNY2TEST" name="marblesCompCorrecto" time="0.002"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="eigenProbabilidadCorresto" time="0.002"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="varianzaCorrecta" time="0"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="marblesCompCorrecto" time="0"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="dobleKetCorecto" time="0"/>
   <testcase classname="escuelaing.edu.test.CNY2TEST" name="rendijasCompCorrecto" time="0"/>
   <testcase classname="escuelaing.edu.test.CNY2TEST" name="marblesDobCorrecto" time="0"/>
-  <testcase classname="escuelaing.edu.test.CNY2TEST" name="rendijasDobCorrecto" time="0"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="dinamicaExactaCorresto" time="0"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="rendijasDobCorrecto" time="0.002"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="eigenValuesCorresto" time="0"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="probabilidadCorecta" time="0"/>
+  <testcase classname="escuelaing.edu.test.CNY2TEST" name="dinamicaCorresto" time="0"/>
   <testcase classname="escuelaing.edu.test.CNY2TEST" name="marblesIntCorrecto" time="0"/>
 </testsuite>
