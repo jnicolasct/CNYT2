@@ -98,7 +98,9 @@ Simulacion de un sistema dinamico exacto, mostrando el estado de este despues de
 
 ### Pruebas
 Prueba del experimento de marbles con una matriz boleana (0 y 1).  
-@Test
+
+    @Test
+
     public void marblesIntCorrecto() {
         int[][] mat1 = new int[6][6];
         int[] vec1 = new int[6];
