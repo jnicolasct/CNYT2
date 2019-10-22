@@ -128,7 +128,8 @@ Prueba del experimento de marbles con una matriz de numero reales.
     }
         
  Prueba del experimento de marbles con una matriz de numero complejos.       
- @Test
+ 
+        @Test
         public void marblesCompCorrecto() {
         Complejo[][] mat1 = new Complejo[3][3];
         Complejo[] vec1 = new Complejo[3];
@@ -154,8 +155,9 @@ Prueba del experimento de marbles con una matriz de numero reales.
         assertTrue(prueba.igualesVec(vecResp, vecDado));
     }
         
-Prueba del experimento de doble rendija con numeros reales.        
-@Test
+Prueba del experimento de doble rendija con numeros reales. 
+
+        @Test
         public void rendijasDobCorrecto() {
         double[][] mat1 = new double[8][8];
         double[] vecResp = new double[8];
@@ -170,7 +172,8 @@ Prueba del experimento de doble rendija con numeros reales.
     }
         
 Prueba del experimento de doble rendija con numeros complejos.        
-@Test
+
+        @Test
         public void rendijasCompCorrecto() {
         Complejo[][] mat1 = new Complejo[8][8];
         Complejo[] vecResp = new Complejo[8];
