@@ -79,6 +79,22 @@ Experimento de rendijas con matriz y vector de numeros complejos que retorna el 
 
 Experimento de rendijas con matriz y vector de numeros complejos que retorna la probabilidad actual, el metodo de este es: public Complejo[][] rendijasMatComp (int rendijas , int blancos, Complejo probabilidad)
 
+### Simulacion de quantum system
+Simulacion de un sistema cuatico basico donde se a la probabilidad de que un particula este en el punto dado, el metodo de este es: public double probabilidadK(int puntos, Complejo[] ket, int posicion)
+
+Simulacion de el avance de un ket a otro ket, el metodo de este es: public Complejo dobleKet(Complejo[] ket, Complejo[] ket1)
+
+Simulacion de calcular el mean value de un sistema cuantico dado un observable, el metodo de este es: public Complejo meanValue(Complejo[][] obs, Complejo[] ket)
+
+Simulacion de calcular la varianza de un sistema cuantico dado un observable, el metodo de este es: public Complejo varianza(Complejo[][] obs, Complejo[] ket)
+
+Simulacion de calcular los eigenvalues de un sistema cuantico dado un observable, el metodo de este es: public Complejo[] eaginvalues(Complejo[][] obs, Complejo[]ket)
+
+Simulacion de calcular la probabilidad de cada eigenvalues de un sistema cuantico dado un observable, el metodo de este es: public double eaginProbabilidad(Complejo[][] obs, Complejo[]ket)
+
+Simulacion de un sistema dinamico, mostrando el estado de este despues de avanzar en todas las matrices unitarias, el metodo de este es: Complejo[] dinamica(ArrayList<Complejo[][]> obs, Complejo[]ket)
+
+Simulacion de un sistema dinamico exacto, mostrando el estado de este despues de avanzar en cierta cantidad de matrices unitarias, el metodo de este es: public Complejo[] dinamicaExacta(ArrayList<Complejo[][]> obs, Complejo[]ket, int tmp)
 
 ## Autor
 Johan Nicolas Cortes Torres
